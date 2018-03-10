@@ -198,5 +198,5 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(velodyne_pro src/heightmap.cpp)
+add_executable(velodyne_pro src/velodyne_process.cpp src/heightmap.cpp)
 target_link_libraries(velodyne_pro ${catkin_LIBRARIES})

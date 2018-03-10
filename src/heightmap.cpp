@@ -21,7 +21,7 @@ namespace velodyne_height_map
         obstacle_publisher_ = node.advertise<VPointCloud>("velodyne_obstacle", 1);
 	unknown_publisher_ = node.advertise<VPointCloud>("velodyne_unknown", 1);
         clear_publisher_ = node.advertise<VPointCloud>("velodyne_clear", 1);
-        
+
         velodyne_scan_ = node.subscribe("velodyne_points", 10, &HeightMap::processData, this, ros::TransportHints().tcpNoDelay(true));
     }
 
@@ -77,7 +77,7 @@ namespace velodyne_height_map
         {
             int x = ((grid_dim_/2)+scan->points[i].x/m_per_cell_);
             int y = ((grid_dim_/2)+scan->points[i].y/m_per_cell_);
-            
+
             if(x >= 0 && x < grid_dim_ && y >= 0 && y < grid_dim_)
             {
 		num[x][y] += 1;
@@ -152,7 +152,7 @@ namespace velodyne_height_map
         clear_cloud_.points.resize(empty_count);
         unknown_cloud_.points.resize(unknown_count);
 
-	
+
         if (obstacle_publisher_.getNumSubscribers() > 0)
             obstacle_publisher_.publish(obstacle_cloud_);
         if (clear_publisher_.getNumSubscribers() > 0)
@@ -162,13 +162,3 @@ namespace velodyne_height_map
 
     }
 }
-
-int main(int argc, char **argv)
-{
-    ros::init(argc, argv, "velodyne_process");
-    ros::NodeHandle node;
-    velodyne_height_map::HeightMap hm(node);
-    ros::spin();
-    return 0;
-}
-
