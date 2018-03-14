@@ -10,8 +10,8 @@ namespace velodyne_height_map
 
     HeightMap::HeightMap(ros::NodeHandle node)
     {
-	    grid_dim_ = 300;
-	    m_per_cell_ = 0.1;
+	    grid_dim_ = 150;
+	    m_per_cell_ = 0.2;
 	    height_diff_threshold_ = 0.1;
         ROS_INFO_STREAM("height map parameters: "
                                 << grid_dim_ << "x" << grid_dim_ << ", "
@@ -80,7 +80,7 @@ namespace velodyne_height_map
 
             if(x >= 0 && x < grid_dim_ && y >= 0 && y < grid_dim_)
             {
-		num[x][y] += 1;
+		        num[x][y] += 1;
                 if(!init[x][y])
                 {
                     min[x][y] = scan->points[i].z;
@@ -100,7 +100,7 @@ namespace velodyne_height_map
         {
             for(int y = 0; y < grid_dim_; y++)
             {
-                if(num[x][y] >= 2)
+                if(num[x][y] >= 1 )
                 {
 
                     if (max[x][y] - min[x][y] > height_diff_threshold_)
